@@ -130,12 +130,12 @@ function handleLoadedTexture(texture) {
     // gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
     // gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
 
-    // gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    // gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
-    gl.generateMipmap(gl.TEXTURE_2D);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+
+    // gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    // gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
+    // gl.generateMipmap(gl.TEXTURE_2D);
 
     gl.bindTexture(gl.TEXTURE_2D, null);
 }
@@ -263,15 +263,15 @@ function drawScene() {
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    mat4.perspective(30, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
+    mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
 
     mat4.identity(mvMatrix);
 
     mat4.translate(mvMatrix, [0.0, 0.0, -3.0]);
-
+    
     for (var i = 0; i < 10; i++) {
 	mvPushMatrix();
-	mat4.translate(mvMatrix, [-2.0, 0.0, -2.0*i]);
+	mat4.translate(mvMatrix, [-3.0, 0.0, -2.0*i]);
 	mat4.rotate(mvMatrix, degToRad(90), [0, 1, 0]);
 	drawPanel(2 * i)
 	mvPopMatrix();
@@ -279,7 +279,7 @@ function drawScene() {
 
     for (var i = 0; i < 10; i++) {
 	mvPushMatrix();
-	mat4.translate(mvMatrix, [2.0, 0.0, -2.0*i]);
+	mat4.translate(mvMatrix, [3.0, 0.0, -2.0*i]);
 	mat4.rotate(mvMatrix, degToRad(-90), [0, 1, 0]);
 	drawPanel(2 * i + 1)
 	mvPopMatrix();
@@ -316,7 +316,7 @@ function webGLStart() {
 	initTexture(i, images[i]);
     }
 
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    gl.clearColor(0.9, 0.9, 0.9, 1.0);
     gl.enable(gl.DEPTH_TEST);
 
 
