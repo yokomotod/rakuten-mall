@@ -1,5 +1,6 @@
 # :coding : UTF-8
 
+require 'uri'
 require 'net/http'
 require 'rexml/document'
 require 'open-uri'
@@ -10,15 +11,15 @@ option = {
   developerId: 'c7e107a4bd63d7ea15966c2bdaef7f75',
   operation: 'ItemSearch',
   version: '2010-09-15',
-  keyword: '%E7%A6%8F%E8%A2%8B',
+  keyword: URI.escape('アウター'),
 }
 
 count = 0
 
 Net::HTTP.start(host, 80) do |http|
 
-  for i in 1...10
-    
+  for i in 1..10
+
     url = url_base + '?' + option.to_a.map{|a| a[0].to_s+'='+a[1] }.join('&') + '&page=' + i.to_s
     puts url
 
