@@ -1,3 +1,10 @@
+const UP    = 0;
+const DOWN  = 1;
+const LEFT  = 2;
+const RIGHT = 3;
+
+var person = {x: 0.0, y: 0.0, d: 0.0};
+
 $(function() {
     // $.ajax({
     // 	type: "GET",
@@ -267,6 +274,9 @@ function drawScene() {
 
     mat4.identity(mvMatrix);
 
+    mat4.rotate(mvMatrix, degToRad(person.d), [0, 1, 0]);
+    mat4.translate(mvMatrix, [-person.x, 0.0, person.y]);
+    
     mvPushMatrix();
     mat4.translate(mvMatrix, [0.0, 0.0, -30.0]);
     mat4.translate(mvMatrix, [-1.0, 0.0, 0.0]);
@@ -293,7 +303,33 @@ function drawScene() {
 	mvPopMatrix();
     }
 }
-    
+
+function walk(d) {
+    person.x += 0.1 * d * Math.sin(degToRad(person.d));
+    person.y += 0.1 * d * Math.cos(degToRad(person.d));
+}
+
+function turn(d) {
+    person.d += d * 0.8;
+}
+
+function keyInput(e) {
+    switch (e.keyCode) {
+    case 37: // left
+	turn(-1);
+	break;
+    case 38: // up
+	walk(1);
+	break;
+    case 39: // right
+	turn(1);
+	break;
+    case 40: // down
+	walk(-1);
+	break;
+    }
+}
+
 function webGLStart() {
     var canvas = document.getElementById("canvas");
     // var canvas = $("#canvas"); cause error!
@@ -342,4 +378,6 @@ function webGLStart() {
 
 
     setInterval(drawScene, 20);
+
+    $(window).keydown(keyInput);
 }
