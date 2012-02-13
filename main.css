@@ -1,0 +1,15 @@
+#wrapper {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+#main {
+    width: 800px;
+    margin: 0 auto;
+    padding: 0;
+
+}
+
+address {
+    text-align: right
+}

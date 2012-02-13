@@ -267,21 +267,29 @@ function drawScene() {
 
     mat4.identity(mvMatrix);
 
-    mat4.translate(mvMatrix, [0.0, 0.0, -3.0]);
+    mvPushMatrix();
+    mat4.translate(mvMatrix, [0.0, 0.0, -30.0]);
+    mat4.translate(mvMatrix, [-1.0, 0.0, 0.0]);
+    drawPanel(0);
+    mat4.translate(mvMatrix, [2.0, 0.0, 0.0]);
+    drawPanel(0);
+    mvPopMatrix();
+
+    mat4.translate(mvMatrix, [0.0, 0.0, -2.0]);
     
-    for (var i = 0; i < 15; i++) {
+    for (var i = 1; i < 15; i++) {
 	mvPushMatrix();
 	mat4.translate(mvMatrix, [-3.0, 0.0, -2.0*i]);
 	mat4.rotate(mvMatrix, degToRad(90), [0, 1, 0]);
-	drawPanel(2 * i)
+	drawPanel(2 * i - 1)
 	mvPopMatrix();
     }
 
-    for (var i = 0; i < 15; i++) {
+    for (var i = 1; i < 15; i++) {
 	mvPushMatrix();
 	mat4.translate(mvMatrix, [3.0, 0.0, -2.0*i]);
 	mat4.rotate(mvMatrix, degToRad(-90), [0, 1, 0]);
-	drawPanel(2 * i + 1)
+	drawPanel(2 * i)
 	mvPopMatrix();
     }
 }
@@ -293,6 +301,7 @@ function webGLStart() {
     initShaders();
     initBuffers();
     images = [
+	'white.png',
 	'image/r_1.jpg',
 	'image/r_2.jpg',
 	'image/r_3.jpg',
@@ -305,7 +314,7 @@ function webGLStart() {
 	'image/r_10.jpg',
 	'image/r_11.jpg',
 	'image/r_12.jpg',
-	'image/r_13.gif',
+	'image/r_13.jpg',
 	'image/r_14.jpg',
 	'image/r_15.jpg',
 	'image/r_16.jpg',
@@ -322,6 +331,7 @@ function webGLStart() {
 	'image/r_27.jpg',
 	'image/r_28.jpg',
 	'image/r_29.jpg',
+	'image/r_30.jpg',
     ];
     for (var i = 0; i < images.length; i++) {
 	initTexture(i, images[i]);
