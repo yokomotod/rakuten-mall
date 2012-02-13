@@ -3,7 +3,7 @@ const DOWN  = 1;
 const LEFT  = 2;
 const RIGHT = 3;
 
-var person = {x: 0.0, y: 0.0, d: 0.0};
+var person = {x: 0.0, y: 10.0, d: 0.0};
 
 $(function() {
     // $.ajax({
@@ -278,7 +278,15 @@ function drawScene() {
     mat4.translate(mvMatrix, [-person.x, 0.0, person.y]);
     
     mvPushMatrix();
-    mat4.translate(mvMatrix, [0.0, 0.0, -30.0]);
+    mat4.translate(mvMatrix, [0.0, 0.0, -4.0]);
+    mat4.translate(mvMatrix, [-1.0, 0.0, 0.0]);
+    drawPanel(0);
+    mat4.translate(mvMatrix, [2.0, 0.0, 0.0]);
+    drawPanel(0);
+    mvPopMatrix();
+
+    mvPushMatrix();
+    mat4.translate(mvMatrix, [0.0, 0.0, -34.0]);
     mat4.translate(mvMatrix, [-1.0, 0.0, 0.0]);
     drawPanel(0);
     mat4.translate(mvMatrix, [2.0, 0.0, 0.0]);
@@ -287,7 +295,7 @@ function drawScene() {
 
     mat4.translate(mvMatrix, [0.0, 0.0, -2.0]);
     
-    for (var i = 1; i < 15; i++) {
+    for (var i = 1; i <= 15; i++) {
 	mvPushMatrix();
 	mat4.translate(mvMatrix, [-3.0, 0.0, -2.0*i]);
 	mat4.rotate(mvMatrix, degToRad(90), [0, 1, 0]);
@@ -295,7 +303,7 @@ function drawScene() {
 	mvPopMatrix();
     }
 
-    for (var i = 1; i < 15; i++) {
+    for (var i = 1; i <= 15; i++) {
 	mvPushMatrix();
 	mat4.translate(mvMatrix, [3.0, 0.0, -2.0*i]);
 	mat4.rotate(mvMatrix, degToRad(-90), [0, 1, 0]);
@@ -307,6 +315,19 @@ function drawScene() {
 function walk(d) {
     person.x += 0.1 * d * Math.sin(degToRad(person.d));
     person.y += 0.1 * d * Math.cos(degToRad(person.d));
+
+    if (person.x <= -1.0) {
+	person.x = -1.0;
+    }
+    if (person.x >= 1.0) {
+	person.x = 1.0;
+    }
+    if (person.y <= 5.0) {
+	person.y = 5.0;
+    }
+    if (person.y >= 29.0) {
+	person.y = 29.0;
+    }
 }
 
 function turn(d) {
