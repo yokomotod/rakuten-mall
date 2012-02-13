@@ -269,7 +269,7 @@ function drawScene() {
 
     mat4.translate(mvMatrix, [0.0, 0.0, -3.0]);
     
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 15; i++) {
 	mvPushMatrix();
 	mat4.translate(mvMatrix, [-3.0, 0.0, -2.0*i]);
 	mat4.rotate(mvMatrix, degToRad(90), [0, 1, 0]);
@@ -277,7 +277,7 @@ function drawScene() {
 	mvPopMatrix();
     }
 
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 15; i++) {
 	mvPushMatrix();
 	mat4.translate(mvMatrix, [3.0, 0.0, -2.0*i]);
 	mat4.rotate(mvMatrix, degToRad(-90), [0, 1, 0]);
@@ -292,26 +292,37 @@ function webGLStart() {
     initGL(canvas);
     initShaders();
     initBuffers();
-    images = ['image/r_1.jpg',
-	      'image/r_2.jpg',
-	      'image/r_3.jpg',
-	      'image/r_4.jpg',
-	      'image/r_5.jpg',
-	      'image/r_6.jpg',
-	      'image/r_7.jpg',
-	      'image/r_8.gif',
-	      'image/r_9.jpg',
-	      'image/r_10.jpg',
-	      'image/r_11.jpg',
-	      'image/r_12.jpg',
-	      'image/r_13.jpg',
-	      'image/r_14.jpg',
-	      'image/r_15.gif',
-	      'image/r_16.jpg',
-	      'image/r_17.jpg',
-	      'image/r_18.jpg',
-	      'image/r_19.jpg',
-	     ];
+    images = [
+	'image/r_1.jpg',
+	'image/r_2.jpg',
+	'image/r_3.jpg',
+	'image/r_4.jpg',
+	'image/r_5.jpg',
+	'image/r_6.jpg',
+	'image/r_7.jpg',
+	'image/r_8.jpg',
+	'image/r_9.jpg',
+	'image/r_10.jpg',
+	'image/r_11.jpg',
+	'image/r_12.jpg',
+	'image/r_13.gif',
+	'image/r_14.jpg',
+	'image/r_15.jpg',
+	'image/r_16.jpg',
+	'image/r_17.jpg',
+	'image/r_18.jpg',
+	'image/r_19.jpg',
+	'image/r_20.jpg',
+	'image/r_21.jpg',
+	'image/r_22.jpg',
+	'image/r_23.jpg',
+	'image/r_24.jpg',
+	'image/r_25.jpg',
+	'image/r_26.jpg',
+	'image/r_27.jpg',
+	'image/r_28.jpg',
+	'image/r_29.jpg',
+    ];
     for (var i = 0; i < images.length; i++) {
 	initTexture(i, images[i]);
     }
