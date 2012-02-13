@@ -140,7 +140,7 @@ function initTexture() {
     texture.image.onload = function () {
     	handleLoadedTexture(texture)
     }
-    texture.image.src = 'image/2.gif';
+    texture.image.src = 'image/1.jpg';
 
     // neheTexture = gl.createTexture();
     // neheTexture.image = new Image();

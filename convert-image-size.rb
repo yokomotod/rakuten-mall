@@ -2,6 +2,7 @@ require 'rubygems'
 require 'RMagick'
 
 image_dir = 'image/'
+size = 512
 
 Dir::entries(image_dir).each do |filename|
   next if filename == '.' || filename == '..'
@@ -11,7 +12,7 @@ Dir::entries(image_dir).each do |filename|
   width = orig.columns
   height = orig.rows
 
-  size = width > height ? width : height
+  # size = width > height ? width : height
 
   orig.background_color = 'white'
   image = orig.extent(size, size, (size-width)/2, (size-height)/2)

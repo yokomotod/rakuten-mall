@@ -24,11 +24,19 @@ Net::HTTP.start(host, 80) do |http|
     image_url = elem.text
     puts image_url
 
+    image_url.sub!(/\?.*/, '')
+
     filename = File.basename(image_url)
-    filename.sub!(/\?.*/, '')
+    
+    image_url += '?_ex=512x512'
+
+    puts image_url
+
+    # filename.sub!(/\?.*/, '')
     filename.sub!(/.*\./, '.')
     filename = 'image/' + count.to_s + filename
     puts filename
+
     open(filename, 'wb') do |file|
       open(image_url) do |data|
         file.write(data.read)
