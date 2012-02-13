@@ -141,15 +141,16 @@ function handleLoadedTexture(texture) {
 }
 
 
-var texture;
+var textures = [];
 
-function initTexture() {
-    texture = gl.createTexture();
-    texture.image = new Image();
-    texture.image.onload = function () {
-    	handleLoadedTexture(texture)
+function initTexture(i, file) {
+    
+    textures[i] = gl.createTexture();
+    textures[i].image = new Image();
+    textures[i].image.onload = function () {
+    	handleLoadedTexture(textures[i])
     }
-    texture.image.src = 'image/r_1.jpg';
+    textures[i].image.src = file;
 
     // neheTexture = gl.createTexture();
     // neheTexture.image = new Image();
@@ -238,19 +239,7 @@ function initBuffers() {
     squareVertexIndexBuffer.numItems = 6;
 }
 
-
-
-function drawScene() {
-    gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-    mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
-
-    mat4.identity(mvMatrix);
-
-    mat4.translate(mvMatrix, [-1.5, 0.0, -7.0]);
-    mat4.translate(mvMatrix, [3.0, 0.0, 0.0]);
-
+function drawPanel(i) {
     gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer);
     gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, squareVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
@@ -260,7 +249,7 @@ function drawScene() {
     gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, squareVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
     
     gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.bindTexture(gl.TEXTURE_2D, textures[i]);
     gl.uniform1i(shaderProgram.samplerUniform, 0);
 
     // setMatrixUniforms();
@@ -269,6 +258,25 @@ function drawScene() {
     setMatrixUniforms();
     gl.drawElements(gl.TRIANGLES, squareVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
 }
+
+function drawScene() {
+    gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+    mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
+
+    mat4.identity(mvMatrix);
+
+    mvPushMatrix();
+    mat4.translate(mvMatrix, [1.5, 0.0, -7.0]);
+    drawPanel(0)
+    mvPopMatrix();
+
+    mvPushMatrix();
+    mat4.translate(mvMatrix, [-1.5, 0.0, -7.0]);
+    drawPanel(2)
+    mvPopMatrix();
+}
     
 function webGLStart() {
     var canvas = document.getElementById("canvas");
@@ -276,7 +284,9 @@ function webGLStart() {
     initGL(canvas);
     initShaders();
     initBuffers();
-    initTexture();
+    initTexture(0, 'image/r_1.jpg');
+    initTexture(1, 'image/r_2.jpg');
+    initTexture(2, 'image/r_3.jpg');
     
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.enable(gl.DEPTH_TEST);
