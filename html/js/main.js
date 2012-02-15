@@ -6,20 +6,9 @@ const RIGHT = 3;
 var person = {x: 0.0, y: 10.0, d: 0.0};
 
 $(function() {
-    // $.ajax({
-    // 	type: "GET",
-    // 	url: "search.php",
-    // 	dataType: "xml",
-    // 	success: function(xml) {
-    // 	    // $(xml).find("Item").each(function() {
-    // 	    // 	var image_link = "<p><img src='" + $($(this).find("mediumImageUrl")).text() + "'></p>";
-    // 	    // 	$("#main").append(image_link);
-    // 	    // });
-    // 	    var image_link = "<p><img src='" + $($($(xml).find("Item").first()).find("mediumImageUrl")).text() + "'></p>";
-    // 	    $("#main").append(image_link);
-    // 	},
-    // })
-   webGLStart();
+    webSocketStart();
+
+    webGLStart();
 });
 
 var gl;
@@ -401,4 +390,20 @@ function webGLStart() {
     setInterval(drawScene, 20);
 
     $(window).keydown(keyInput);
+}
+
+function webSocketStart() {
+    var socket = io.connect('http://localhost:8000');
+
+    socket.on('connect', function(msg) {
+	$("#status").html(
+	    "<p>ConnectID : " + socket.socket.transport.sessid + "</p>\n"
+		+ "<p>ConnectType : " + socket.socket.transport.name + "</p>"
+	);
+    });
+
+    socket.on('message', function(msg) {
+	$("#debug").html(msg.value);
+    });
+
 }

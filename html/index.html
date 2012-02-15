@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Rakuten Mall</title>
     <link rel="stylesheet" href="main.css" type="text/css">
+    <script charset="utf-8" src="http://localhost:8000/socket.io/socket.io.js"></script>
     <script charset="utf-8" src="js/jquery.js"></script>
     <script charset="utf-8" src="js/glMatrix-0.9.5.min.js"></script>
     <script charset="utf-8" src="js/webgl-utils.js"></script>
@@ -17,7 +18,11 @@
       <div id="main">
 	<canvas id="canvas" width="800" height="600"></canvas>
       </div>
-      
+
+      <div id="status"></div>
+
+      <div id="debug"></div>
+
       <address>
 	producted by <a href="https://twitter.com/#!/yokomotod">@yokomotod</a> (twitter)
       </address>
