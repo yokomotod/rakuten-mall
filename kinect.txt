@@ -1,0 +1,67 @@
+kinect
+
+ Data
+  Sample-Scene.xml
+  Sample-Tracking.xml
+  Sample-User.xml
+
+ Include:
+
+ Samples
+  Bin
+  Build
+  NiteSampleMakefile 
+  PointViewer:
+    PointDrawer.cpp -- modified
+
+diff PointDrawer.cpp
+22,29d21
+< #include <sys/types.h>
+< #include <sys/socket.h>
+< #include <netinet/in.h>
+< #include <arpa/inet.h>
+< 
+< /* socket for TCP to node.js */
+< int sock;
+< 
+37,57d28
+< 
+< 	struct sockaddr_in server;
+< 	char buf[32];
+< 	int n;
+< 
+< 	/* create socket */
+< 	sock = socket(AF_INET, SOCK_STREAM, 0);
+< 	if (sock < 0) {
+< 	  printf("error : sock is NULL\n");
+< 	}
+< 
+< 	/* setup server info */
+< 	server.sin_family = AF_INET;
+< 	server.sin_port = htons(1111);
+< 	server.sin_addr.s_addr = inet_addr("127.0.0.1");
+< 
+< 	/* connect to server */
+< 	if (connect(sock, (struct sockaddr *)&server, sizeof(server)) != 0) {
+< 	  printf("error : connect");
+< 	}
+< 
+63,65d33
+< 	/* close socket */
+< 	close(sock);	
+< 
+340,341d307
+< 	char data[128];
+< 
+388,398d353
+< 
+< 	// if (IsTouching(m_History.begin()->first)) { // "Touching" means a hand locate near the edge of window
+< 	if (m_History.size() > 0) { // When not recognized any hands, m_History map has no items.
+< 	  XnPoint3D pt(*m_History.begin()->second.begin());
+< 	  sprintf(data, "%d,%d,%d", (int)pt.X, (int)pt.Y, (int)pt.Z);
+< 	  printf("write %s\n", data);
+< 	  int n = write(sock, data, strlen(data));
+< 	  if (n < 1) {
+< 	    printf("error : write");
+< 	  }
+<       }

@@ -3,11 +3,9 @@ const DOWN  = 1;
 const LEFT  = 2;
 const RIGHT = 3;
 
-var person = {x: 0.0, y: 10.0, d: 0.0};
+var person = {x: 0.0, y: 15.0, rotateX: 0.0, rotateZ: 0.0};
 
 $(function() {
-    webSocketStart();
-
     webGLStart();
 });
 
@@ -263,7 +261,8 @@ function drawScene() {
 
     mat4.identity(mvMatrix);
 
-    mat4.rotate(mvMatrix, degToRad(person.d), [0, 1, 0]);
+    mat4.rotate(mvMatrix, degToRad(person.rotateX), [1, 0, 0]);
+    mat4.rotate(mvMatrix, degToRad(person.rotateZ), [0, 1, 0]);
     mat4.translate(mvMatrix, [-person.x, 0.0, person.y]);
     
     mvPushMatrix();
@@ -302,8 +301,8 @@ function drawScene() {
 }
 
 function walk(d) {
-    person.x += 0.1 * d * Math.sin(degToRad(person.d));
-    person.y += 0.1 * d * Math.cos(degToRad(person.d));
+    person.x += 0.1 * d * Math.sin(degToRad(person.rotateZ));
+    person.y += 0.1 * d * Math.cos(degToRad(person.rotateZ));
 
     if (person.x <= -1.0) {
 	person.x = -1.0;
@@ -320,7 +319,7 @@ function walk(d) {
 }
 
 function turn(d) {
-    person.d += d * 0.8;
+    person.rotateZ += d * 0.8;
 }
 
 function keyInput(e) {
@@ -392,18 +391,3 @@ function webGLStart() {
     $(window).keydown(keyInput);
 }
 
-function webSocketStart() {
-    var socket = io.connect('http://localhost:8000');
-
-    socket.on('connect', function(msg) {
-	$("#status").html(
-	    "<p>ConnectID : " + socket.socket.transport.sessid + "</p>\n"
-		+ "<p>ConnectType : " + socket.socket.transport.name + "</p>"
-	);
-    });
-
-    socket.on('message', function(msg) {
-	$("#debug").html(msg.value);
-    });
-
-}
