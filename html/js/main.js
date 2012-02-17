@@ -3,7 +3,7 @@ const DOWN  = 1;
 const LEFT  = 2;
 const RIGHT = 3;
 
-var person = {x: 0.0, y: 15.0, rotateX: 0.0, rotateZ: 0.0};
+var person = {x: 0.0, y: 15.0, rotateX: 0.0, rotateY: 0.0, rotateZ: 0.0};
 
 $(function() {
     webGLStart();
@@ -263,6 +263,7 @@ function drawScene() {
 
     mat4.rotate(mvMatrix, degToRad(person.rotateX), [1, 0, 0]);
     mat4.rotate(mvMatrix, degToRad(person.rotateZ), [0, 1, 0]);
+    mat4.rotate(mvMatrix, degToRad(person.rotateY), [0, 0, 1]);
     mat4.translate(mvMatrix, [-person.x, 0.0, person.y]);
     
     mvPushMatrix();

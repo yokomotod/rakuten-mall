@@ -19,7 +19,7 @@ var server = net.createServer(function (stream) {
     stream.on('data', function (data) {
 	console.log("tcp : " + data);
 	stream.write(data);
-	io.sockets.emit('message', { value: data.toString() });
+	io.sockets.emit('message', { value: 'kinect:'+data.toString() });
     });
     stream.on('end', function () {
 	stream.end();
