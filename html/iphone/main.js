@@ -33,7 +33,7 @@ window.onload = function() {
     });
 
     if ('io' in window) {
-	socket = io.connect('http://192.168.11.2:8000');
+	socket = io.connect('http://bookside.net:8000');
 
 	socket.on('connect', function(msg) {
 	    document.getElementById('status').innerHTML

@@ -130,7 +130,7 @@ function parseSocketData(data) {
 }
 
 function webSocketStart() {
-    var socket = io.connect('http://localhost:8000');
+    var socket = io.connect('http://bookside.net:8000');
 
     socket.on('connect', function(msg) {
 	$('#status').html(
