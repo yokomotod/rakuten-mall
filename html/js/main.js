@@ -55,8 +55,8 @@ function keyInput(e) {
 var camera, scene, renderer,
     geometry, material, mesh;
 
-function createPlane(position, rotation, surface) {
-    geometry = new THREE.PlaneGeometry(10,10); // 立方体を作成
+function createPlane(size, position, rotation, surface) {
+    geometry = new THREE.PlaneGeometry(size.w, size.h); // 立方体を作成
 
     material = new THREE.MeshBasicMaterial(surface);
     // material = new THREE.MeshLambertMaterial({map:texture});
@@ -119,48 +119,58 @@ function init() {
 
 
     for (var i = 0; i < 15; i++) {
-	var position = {x: 10, y: 0, z: 10*i+5 };
-	var rotation = {x: 0.5*Math.PI, y: 0, z: 0.5*Math.PI };
-	var image = 'image/r_' + (i+1) + '.jpg';
-	scene.add( createPlane(
-			       position,
-			       rotation,
-			       {map: THREE.ImageUtils.loadTexture(image)}
-			       ) );
+    	var image = 'image/r_' + (i+1) + '.jpg';
+    	scene.add( createPlane(
+    			       {w: 10.0, h: 10.0 },
+    			       {x: 10, y: 0, z: 10*i+5 },
+    			       {x: 0.5*Math.PI, y: 0, z: 0.5*Math.PI },
+    			       {map: THREE.ImageUtils.loadTexture(image)}
+    			       ) );
     }
 
     for (var i = 0; i < 15; i++) {
-	var position = {x: -10, y: 0, z: 10*i+5 };
-	var rotation = {x: 0.5*Math.PI, y: 0, z: -0.5*Math.PI };
-	var image = 'image/r_' + (i+16) + '.jpg';
-	scene.add( createPlane(
-			       position,
-			       rotation,
-			       {map: THREE.ImageUtils.loadTexture(image)}
-			       ) );
+    	var image = 'image/r_' + (i+16) + '.jpg';
+    	scene.add( createPlane(
+    			       {w: 10.0, h: 10.0 },
+    			       {x: -10, y: 0, z: 10*i+5 },
+    			       {x: 0.5*Math.PI, y: 0, z: -0.5*Math.PI },
+    			       {map: THREE.ImageUtils.loadTexture(image)}
+    			       ) );
     }
 
     
     scene.add( createPlane(
-			   {x: -5, y: 0, z: 0},
-			   {x: 0.5*Math.PI, y: 0, z: 0},
-			   {color: 0xffffff}
-			   ) );
+    			   {w: 10.0, h: 10.0 },
+    			   {x: -5, y: 0, z: 0},
+    			   {x: 0.5*Math.PI, y: 0, z: 0},
+    			   {color: 0xffffff}
+    			   ) );
     scene.add( createPlane(
-			   {x: 5, y: 0, z: 0},
-			   {x: 0.5*Math.PI, y: 0, z: 0},
-			   {color: 0xffffff}
-			   ) );
+    			   {w: 10.0, h: 10.0 },
+    			   {x: 5, y: 0, z: 0},
+    			   {x: 0.5*Math.PI, y: 0, z: 0},
+    			   {color: 0xffffff}
+    			   ) );
     scene.add( createPlane(
-			   {x: -5, y: 0, z: 150},
-			   {x: -0.5*Math.PI, y: 0, z: 0},
-			   {color: 0xffffff}
-			   ) );
+    			   {w: 10.0, h: 10.0 },
+    			   {x: -5, y: 0, z: 150},
+    			   {x: -0.5*Math.PI, y: 0, z: 0},
+    			   {color: 0xffffff}
+    			   ) );
     scene.add( createPlane(
-			   {x: 5, y: 0, z: 150},
-			   {x: -0.5*Math.PI, y: 0, z: 0},
-			   {color: 0xffffff}
-			   ) );
+    			   {w: 10.0, h: 10.0 },
+    			   {x: 5, y: 0, z: 150},
+    			   {x: -0.5*Math.PI, y: 0, z: 0},
+    			   {color: 0xffffff}
+    			   ) );
+
+
+    scene.add( createPlane(
+    			   {w: 3.0, h: 3.0 },
+    			   {x: 0, y: 0, z: 50},
+    			   {x: -0.5*Math.PI, y: 0, z: 0},
+    			   {map: THREE.ImageUtils.loadTexture('image/circle_green.png')}
+    			   ) );
 
     // var light = new THREE.DirectionalLight(0xffffff,1.5); // 光源の色/強さ
     // light.position = {x:0,y:0.2,z:1}; // 光源の位置
