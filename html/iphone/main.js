@@ -20,6 +20,8 @@ window.onload = function() {
 	if (socket != undefined) {
 	    socket.emit('message', { value: 'iphone:'+'gravity,'+gravity.x+','+gravity.y+','+gravity.z });
 	}
+
+	
     });
     window.addEventListener('deviceorientation', function(e) {
 	var compass = e.webkitCompassHeading;
@@ -36,6 +38,8 @@ window.onload = function() {
 	socket = io.connect('http://bookside.net:8000');
 
 	socket.on('connect', function(msg) {
+	    alert(socket.socket.transport.name);
+	
 	    document.getElementById('status').innerHTML
 		= "<p>ConnectID : " + socket.socket.transport.sessid + "</p>"
 		+ "<p>ConnectType : " + socket.socket.transport.name + "</p>";

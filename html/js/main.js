@@ -165,13 +165,6 @@ function init() {
     			   ) );
 
 
-    scene.add( createPlane(
-    			   {w: 3.0, h: 3.0 },
-    			   {x: 0, y: 0, z: 50},
-    			   {x: -0.5*Math.PI, y: 0, z: 0},
-    			   {map: THREE.ImageUtils.loadTexture('image/circle_green.png')}
-    			   ) );
-
     // var light = new THREE.DirectionalLight(0xffffff,1.5); // 光源の色/強さ
     // light.position = {x:0,y:0.2,z:1}; // 光源の位置
     // scene.add(light);
